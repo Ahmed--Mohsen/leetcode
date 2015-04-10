@@ -5,4 +5,4 @@ The language used for solving is python
 
 All the answers here have been accepted through the judge
 
-Note: may be not all the ideas are mine bu the code is
+Note: Not all the algorithms ideas are mine but the code is
