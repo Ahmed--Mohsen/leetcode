@@ -31,6 +31,7 @@ class Solution:
 		return False			
 			
 	def is_safe(self, row, colm):
+		# check prev rows
 		for r in range(row):
 			c = self.columns[r]
 			
