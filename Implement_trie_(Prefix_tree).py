@@ -49,8 +49,41 @@ class Trie:
 			node = node.childern[char]
 		return True
 		
+	# return the LCA trie node for the prefix
+	def find(self, prefix):
+		node = self.root
+		for char in prefix:
+			if not char in node.childern:
+				return node
+			node = node.childern[char]
+		return node
+		
+	def all_matches(self, prefix):
+		node = self.find(prefix)
+		result = []
+		self.all_matches_helper(node, prefix, result)
+		return result
+		
+	def all_matches_helper(self, root, prefix, result):
+		# base case nothing to be done
+		if root == None:
+			return
+			
+		# the current prefix is actually a valid word
+		if root.word_end:
+			result.append(prefix)
+		
+		# DFS search for other children
+		for char in root.childern:
+			self.all_matches_helper(root.childern[char], prefix + char, result)
+			
 
 # Your Trie object will be instantiated and called as such:
 trie = Trie()
 trie.insert("somestring")
-print trie.startsWith("somess")
+trie.insert("sometimes")
+trie.insert("something")
+
+#print trie.startsWith("somess")
+#print trie.find("some").childern
+print trie.all_matches("some")
