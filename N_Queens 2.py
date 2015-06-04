@@ -28,7 +28,7 @@ class Solution:
 		return solutions
 			
 	def is_safe(self, row, colm):
-		# look back at already added quens
+		# look back at already added queens
 		for r in range(row):
 			c = self.columns[r]
 			

@@ -23,7 +23,7 @@ class BSTIterator:
 			self.stack.append(self.current)
 			self.current = self.current.left
 		
-		#retreive smallest element then switch to left
+		#retreive smallest element then switch to right
 		self.current = self.stack.pop(-1)
 		value = self.current.val
 		self.current = self.current.right

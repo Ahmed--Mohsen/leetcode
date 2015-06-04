@@ -9,7 +9,7 @@ class Solution:
 		#k is the len of the positive subarray of A
 		k = self.partition(A)
 		
-		#the first posistive number must be between [1, k]
+		#the first positive number must be between [1, k]
 		#A[i] = -A[i] means i+1 exist in A
 		for i in range(k):
 			temp = abs(A[i])

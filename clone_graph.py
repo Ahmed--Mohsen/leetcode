@@ -42,7 +42,7 @@ class Solution:
 
 			for neighbor in current.neighbors:
 				if map.has_key(neighbor): #has been visited from another node
-					copyCurrent.neighbors.append(neighbor)
+					copyCurrent.neighbors.append(map[neighbor])
 				else: #new unvisited neighbor
 					copyNeighbor = UndirectedGraphNode(neighbor.label)
 					copyCurrent.neighbors.append(copyNeighbor)

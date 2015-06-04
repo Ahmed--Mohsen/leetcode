@@ -16,7 +16,6 @@ class Solution:
 		if root == None:
 			return []
 			
-		level = 0
 		queue = [] # will carry nodes in the same level
 		
 		queue.append(root)
