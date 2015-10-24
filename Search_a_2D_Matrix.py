@@ -14,7 +14,8 @@ class Solution:
 		
 		while start <= end:
 			mid = (start + end)/2
-			mid_element = matrix[mid/colms][mid%colms]
+			# treating the matrix as a long 1D array (row major)
+			mid_element = matrix[mid / colms][mid % colms]
 			
 			if mid_element == target:
 				return True
@@ -23,4 +24,5 @@ class Solution:
 				end = mid - 1
 			else:
 				start = mid + 1
+				
 		return False

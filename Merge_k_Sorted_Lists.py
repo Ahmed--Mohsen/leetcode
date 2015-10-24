@@ -16,7 +16,7 @@ class Solution:
 		if len(lists) == 1:
 			return lists[0]
 		
-		pre_sort_head = ListNode(-1) #dummy
+		pre_sort_head = ListNode(-1) # dummy
 		pointer = pre_sort_head
 		heap = []
 		
@@ -25,11 +25,11 @@ class Solution:
 				heapq.heappush(heap, (list_node.val, list_node))
 		
 		while len(heap) > 0:
-			#get min node and add it to the sorted list
+			
+			# get min node and add it to the sorted list
 			min_node = heapq.heappop(heap)[1]
 			pointer.next = min_node
 			pointer = pointer.next
-			
 			
 			if min_node.next:
 				heapq.heappush(heap, (min_node.next.val, min_node.next))

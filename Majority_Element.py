@@ -35,6 +35,7 @@ class Solution:
 					one_count += 1
 				else:
 					zero_count += 1
+					
 			#majority element i(th) bit is the bit with the larger count
 			if one_count > zero_count:
 				majority_element = majority_element | (1 << i)
