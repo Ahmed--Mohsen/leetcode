@@ -37,7 +37,7 @@ class Solution(object):
 				left = dp[left_inp] if left_inp in dp else self.diffWaysToComputeHelper(left_inp, ops, dp)
 				right = dp[right_inp] if right_inp in dp else self.diffWaysToComputeHelper(right_inp, ops, dp)
 				
-				# cal all combinations
+				# calc all combinations
 				for l in left:
 					for r in right:
 						result.append(ops[ current ](l, r))
