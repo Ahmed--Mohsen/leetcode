@@ -1,3 +1,17 @@
+"""
+Given an array S of n integers, are there elements a, b, c, and d in S such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+
+Note:
+Elements in a quadruplet (a,b,c,d) must be in non-descending order. (ie, a <= b <= c <= d)
+The solution set must not contain duplicate quadruplets.
+    For example, given array S = {1 0 -1 0 -2 2}, and target = 0.
+
+    A solution set is:
+    (-1,  0, 0, 1)
+    (-2, -1, 1, 2)
+    (-2,  0, 0, 2)
+
+"""
 from collections import defaultdict
 
 class Solution:
@@ -19,11 +33,17 @@ class Solution:
 		# treat the problem as a 2-sum one
 		for two_sum in two_sums.keys():
 			remaining = target - two_sum
-			if remaining in two_sums: # 4-sum exist
+			
+			# 4-sum exist
+			if remaining in two_sums: 
+				
+				# get all pairs that sum to target
 				for pair_1 in two_sums[two_sum]:
 					for pair_2 in two_sums[remaining]:
+						
+						# check no duplicates
 						full_pair_indxs = set([pair_1[0], pair_1[1], pair_2[0], pair_2[1]])
-						if len(full_pair_indxs) == 4: # no duplicates
+						if len(full_pair_indxs) == 4:
 							full_pair = tuple(sorted([num[ind] for ind in  full_pair_indxs]))
 							result.add(full_pair)
 			

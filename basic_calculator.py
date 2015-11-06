@@ -1,7 +1,23 @@
+"""
+
+Implement a basic calculator to evaluate a simple expression string.
+
+The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces .
+
+You may assume that the given expression is always valid.
+
+Some examples:
+"1 + 1" = 2
+" 2-1 + 2 " = 3
+"(1+(4+5+2)-3)+(6+8)" = 23
+
+"""
 class Solution:
+	
 	# @param {string} s
 	# @return {integer}
 	def calculate(self, s):
+		
 		# empty case
 		if len(s) == 0:
 			return 0
@@ -33,6 +49,7 @@ class Solution:
 		prev_was_number = False
 		
 		for c in s:
+			
 			# escape empty chars
 			if c == ' ':
 				continue	
@@ -41,7 +58,9 @@ class Solution:
 			if c >= '0' and c <= '9':
 				num = num * 10 + int(c)
 				prev_was_number = True
-			else: # check if there was number buffering
+				
+			# check if there was number buffering
+			else: 
 				if prev_was_number:
 					postfix.append(num)
 					num = 0

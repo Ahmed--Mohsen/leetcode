@@ -1,7 +1,25 @@
+"""
+
+Implement a basic calculator to evaluate a simple expression string.
+
+The expression string contains only non-negative integers, +, -, *, / operators and empty spaces. 
+The integer division should truncate toward zero.
+
+You may assume that the given expression is always valid.
+
+Some examples:
+"3+2*2" = 7
+" 3/2 " = 1
+" 3+5 / 2 " = 5
+
+"""
+
 class Solution:
+	
 	# @param {string} s
 	# @return {integer}
 	def calculate(self, s):
+		
 		# empty case
 		if len(s) == 0:
 			return 0
@@ -56,7 +74,9 @@ class Solution:
 			if c >= '0' and c <= '9':
 				num = num * 10 + int(c)
 				prev_was_number = True
-			else: # check if there was number buffering
+				
+			# check if there was number buffering
+			else:
 				if prev_was_number:
 					postfix.append(num)
 					num = 0

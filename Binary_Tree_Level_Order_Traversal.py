@@ -1,3 +1,23 @@
+"""
+
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree {3,9,20,#,#,15,7},
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its level order traversal as:
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+
+"""
+
 # Definition for a  binary tree node
 class TreeNode:
 	def __init__(self, x):
@@ -34,45 +54,7 @@ class Solution:
 			result.append(level)
 
 		return result
-			
-	# @param root, a tree node
-	# @return a list of lists of integers
-	def levelOrderOld(self, root):
-		if root == None:
-			return []
-			
-		level = 0
-		queue = [] # will carry nodes to be visited plus there level
-		
-		queue.append(root)
-		queue.append(0)
-		result = []
-		
-		while len(queue) > 0:
-			current_node = queue.pop(0)
-			current_level = queue.pop(0)
-			
-			#add current node to result
-			if len(result) <=  current_level:
-				result.append([current_node.val])
-			else:
-				result[current_level].append(current_node.val)
 
-			#visit children
-			if current_node.left:
-				queue.append(current_node.left)
-				queue.append(current_level + 1)
-			if current_node.right:
-				queue.append(current_node.right)
-				queue.append(current_level + 1)
-
-		return result
-	
-	def print_queue(self, queue):
-		for node in queue:
-			print node,
-		print "\n"
-	
 
 s = Solution()
 root = TreeNode(3)
