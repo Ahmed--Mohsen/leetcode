@@ -1,3 +1,18 @@
+"""
+
+Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+For example:
+Given the following binary tree,
+   1            <---
+ /   \
+2     3         <---
+ \     \
+  5     4       <---
+You should return [1, 3, 4].
+
+"""
+
 # Definition for a binary tree node.
 class TreeNode:
 	def __init__(self, x):
@@ -6,6 +21,37 @@ class TreeNode:
 		self.right = None
 
 class Solution:
+	
+	# @param {TreeNode} root
+	# @return {integer[]}
+	# recursive solution
+	def rightSideViewRecursive(self, root):
+		# base case
+		if root == None:
+			return []
+
+		result = []
+		self.traverse(root, 1, result)
+		return result
+	
+	def traverse(self, root, level, res):
+		# stopping creteria
+		if root == None: return
+		
+		# means current node is the first to be seen
+		# in this level from the right
+		if level > len(res):
+			res.append(root.val)
+		
+		# visit children
+		if root.right:
+			self.traverse(root.right, level+1, res)
+		if root.left:
+			self.traverse(root.left, level+1, res)
+			
+			
+################################# Iterative Solution #########################################
+			
 	# @param {TreeNode} root
 	# @return {integer[]}
 	# iterative solution
@@ -36,34 +82,6 @@ class Solution:
 					queue.append(node.right)
 	
 		return side_view
-		
-		
-	# @param {TreeNode} root
-	# @return {integer[]}
-	# recursive solution
-	def rightSideViewRecursive(self, root):
-		# base case
-		if root == None:
-			return []
-
-		result = []
-		self.traverse(root, 1, result)
-		return result
-	
-	def traverse(self, root, level, res):
-		# stopping creteria
-		if root == None: return
-		
-		# means current node is the first to be seen
-		# in this level from the right
-		if level > len(res):
-			res.append(root.val)
-		
-		# visit children
-		if root.right:
-			self.traverse(root.right, level+1, res)
-		if root.left:
-			self.traverse(root.left, level+1, res)
 			
 
 

@@ -1,8 +1,20 @@
+"""
+
+You are climbing a stair case. It takes n steps to reach to the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+"""
+
 class Solution:
+	
 	# @param n, an integer
 	# @return an integer
 	def climbStairs(self, n):
-		dp = [0]*(n+3) # the extra 2 for the base cases
+		
+		# dp[i] = number of ways to climb i stairs
+		# the extra 3 for the base cases
+		dp = [0]*(n+3) 
 		dp[0] = 0
 		dp[1] = 1
 		dp[2] = 2
