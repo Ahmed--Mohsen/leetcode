@@ -1,3 +1,10 @@
+"""
+A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
+
+Return a deep copy of the list.
+
+"""
+
 # Definition for singly-linked list with a random pointer.
 class RandomListNode:
 	def __init__(self, x):
@@ -9,40 +16,55 @@ class RandomListNode:
 		return str(self.label)
 
 class Solution:
+	
 	# @param head, a RandomListNode
 	# @return a RandomListNode
 	def copyRandomList(self, head):
-		visited = {} #original to copy mapping
+		# baes case
+		if head == None:
+			return None
+
+		# key = real node label , value = copy node
+		map = {} 
+
+		#copy head
+		copyHead = self.getNodeCopy(map, head)
 		
 		pointer = head
-		pre_copy = RandomListNode(-1)
-		copy_pointer = pre_copy
 		while pointer:
+
+			# copy pointer node
+			copyPointer = self.getNodeCopy(map, pointer)
 			
-			#handling next link
-			if not pointer in visited:
-				copy_node = RandomListNode(pointer.label)
-				visited[pointer] = copy_node
-			else:
-				copy_node = visited[pointer]
+			# copy its next pointer
+			copyPointer.next = self.getNodeCopy(map, pointer.next)
 			
-			copy_pointer.next = copy_node
-			copy_pointer = copy_pointer.next
+			# copy its random pointer
+			copyPointer.random = self.getNodeCopy(map, pointer.random)
 			
-			#handling random link
-			if pointer.random:
-				if not pointer.random in visited:
-					copy_random = RandomListNode(pointer.random.label)
-					visited[pointer.random] = copy_random
-				else:
-					copy_random = visited[pointer.random]
-					
-				copy_node.random = copy_random
-				
+			# move to next node
 			pointer = pointer.next
-		
-		return pre_copy.next
+
+		return copyHead
 			
+
+	"""
+	get a copy node for the input node
+	if the node copy already existed before its just returned
+	"""
+	def getNodeCopy(self, map,  node):
+		# for non refrenced edges
+		if node == None:
+			return None
+			
+		# not copied before
+		if not node in map:
+			copy = RandomListNode(node.label)
+			map[node] = copy
+			
+		return map[node]
+
+
 
 head = RandomListNode(3)
 head.next = RandomListNode(5)

@@ -1,3 +1,13 @@
+"""
+
+Follow up for H-Index: What if the citations array is sorted in ascending order? Could you optimize your algorithm?
+
+Hint:
+
+Expected runtime complexity is in O(log n) and the input is sorted.
+
+"""
+
 class Solution(object):
 	
 	"""
@@ -6,11 +16,9 @@ class Solution(object):
 	"""
 	def hIndex(self, citations):
 		n = len(citations)
-		count = [0] * (n+1)
 		
 		# base case
-		if n == 0:
-			return 0
+		if n == 0: return 0
 		
 		low = 0
 		high = n-1

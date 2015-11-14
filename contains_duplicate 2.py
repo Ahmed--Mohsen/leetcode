@@ -1,4 +1,10 @@
+"""
+
+Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums[i] = nums[j] and the difference between i and j is at most k.
+
+"""
 class Solution:
+	
 	# @param {integer[]} nums
 	# @param {integer} k
 	# @return {boolean}
@@ -6,19 +12,23 @@ class Solution:
 		n = len(nums)
 		
 		# base case (only one or less element)
-		if n < 2:
+		if k <= 0:
 			return False
 		
-		# save the first index occur for num
-		memo = {}
+		# save window of size k: nums[i - k] to nums[i - 1]
+		memo = set()
 		for i in range(n):
+			
+			# keep track of k sized window
+			if i > k:
+				memo.remove(nums[i - k - 1])
+			 
 			# appeared before
 			if nums[i] in memo:
-				if i - memo[nums[i]] <= k: # at most k
 					return True
 					
 			# save its index for latter comparison
-			memo[nums[i]] = i
+			memo.add(nums[i])
 		
 		# no solution found
 		return False

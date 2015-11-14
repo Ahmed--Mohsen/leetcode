@@ -28,9 +28,7 @@ class Solution:
 			inorder_map[inorder[i]] = i
 			
 		return self.buildTreeHelper(inorder,0, len(inorder) - 1, preorder, 0, len(preorder) - 1, inorder_map)
-				
-	
-	
+		
 	
 	# takes O(n) usage of map instead of inorder.index
 	# offset is the starting position of the right subtree index
@@ -47,7 +45,7 @@ class Solution:
 		# right subtree length
 		right_len = divider - in_start
 		root.left = self.buildTreeHelper(inorder, in_start, divider-1, preorder, pre_start+1, pre_start+right_len, inorder_map)
-		root.right = self.buildTreeHelper(inorder, divider+1, in_end, preorder, pre_end-right_len, pre_end, inorder_map)
+		root.right = self.buildTreeHelper(inorder, divider+1, in_end, preorder, pre_start+right_len+1, pre_end, inorder_map)
 		
 		return root
 		

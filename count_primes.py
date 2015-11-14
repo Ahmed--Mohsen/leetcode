@@ -1,12 +1,20 @@
+"""
+
+Count the number of prime numbers less than a non-negative number, n.
+
+"""
+
 import math
 
 class Solution:
+	
 	# @param {integer} n
 	# @return {integer}
 	def countPrimes(self, n):
 		is_prime = [True] * n
 		
 		for i in range(2, int(math.sqrt(n)) + 1):
+			
 			# check if i is prime
 			if is_prime[i]:
 
