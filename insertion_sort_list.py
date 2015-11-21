@@ -1,3 +1,9 @@
+"""
+
+Sort a linked list using insertion sort.
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -17,7 +23,8 @@ class Solution:
 		inner = sorted_head #points to sorted portion of the list
 		
 		while pointer != None:
-			#reset inner pointer only when its value is larger than pointer
+			
+			# reset inner pointer only when its value is larger than pointer
 			if inner.val > pointer.val: 
 				inner = sorted_head
 			
