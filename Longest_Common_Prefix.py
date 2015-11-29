@@ -1,24 +1,31 @@
+"""
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+"""
+
 class Solution:
+	
 	# @return a string
 	def longestCommonPrefix(self, strs):
-		if len(strs) == 0:
-			return ""
+		# base case
+		if len(strs) == 0: return ""
 		
-		index = -1
-		done = False
-		while not(done):
-			index += 1
-			if index > len(strs[0]) - 1:
-				break
-			current_char = strs[0][index]
-			for i in range(1, len(strs)):
-				str = strs[i]
-				if len(str) <= index or str[index] != current_char:
-					done = True
-					break
-		return strs[0][0:index]
-
+		# the result would be either the first string or part of it
+		prefix = strs[0]
+		
+		for i in range(len(prefix)):
+			c = prefix[i]
+			
+			# check that c exist in i position for all other strings
+			for s in strs:
+				if i >= len(s) or s[i] != c:
+					return prefix[0:i]
+		
+		# first string is the actual prefix
+		return prefix
+		
 
 s = Solution()
-print s.longestCommonPrefix(["abc", "abvdf", "abre"])
+print s.longestCommonPrefix(["abc", "abcvdf", "abcre"])
 		

@@ -1,37 +1,72 @@
+"""
+
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+
+
+Input:Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+Note:
+Although the above answer is in lexicographical order, your answer could be in any order you want.
+
+"""
+
+############################### BFS Solution ###############################
 class Solution:
-	# @return a list of strings, [s1, s2]
-	def letterCombinations(self, digits):
-		if len(digits) < 1:
-			return [""]
-		
-		self.create_digit_mapping()
-		self.digits = digits
-		self.result = []
-		self.letterCombinationsHelper(0, "")
-		
-		return self.result
 	
-	def letterCombinationsHelper(self, digit_index, current):
-		if digit_index >= len(self.digits): #base cases
-			self.result.append(current)
+	# @return a list of strings, [s1, s2]
+	def letterCombinations(self, digits):		
+		# base case
+		if len(digits) < 1: return []
+		
+		# button to chars mapping
+		mapping = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+		
+		# the bfs queue in the current level
+		result = [""]
+		
+		for digit in digits:
+			num = ord(digit) - ord('0')
+			chars = mapping[num]
+			
+			# update the result passed on prev state (level)
+			tmp = []
+			for r in result:
+				for c in chars:
+					tmp.append(r+c)
+			result = tmp
+			
+		return result
+	
+
+############################### DFS Solution ###############################
+class Solution:
+	
+	# @return a list of strings, [s1, s2]
+	def letterCombinations(self, digits):		
+		mapping = ["", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+		result = []
+		
+		# base case
+		if len(digits) < 1: 
+			return result
+		
+		self.letterCombinationsHelper(mapping, digits, 0, [], result)
+		return result
+	
+	def letterCombinationsHelper(self, mapping, digits, index, current, result):
+		# base cases
+		if index >= len(digits): 
+			result.append("".join(current))
 			return
-		current_digit = self.digits[digit_index]
-		current_digit_map = self.mapping[current_digit]
-		for i in range(len(current_digit_map)):
-			self.letterCombinationsHelper(digit_index + 1, current + current_digit_map[i])
 		
-		
-	def create_digit_mapping(self):
-		self.mapping = {}
-		self.mapping["1"] = ""
-		self.mapping["2"] = "abc"
-		self.mapping["3"] = "def"
-		self.mapping["4"] = "ghi"
-		self.mapping["5"] = "jkl"
-		self.mapping["6"] = "mno"
-		self.mapping["7"] = "pqrs"
-		self.mapping["8"] = "tuv"
-		self.mapping["9"] = "wxyz"
+		digit_map = mapping[ord(digits[index]) - ord('0')]
+		for i in range(len(digit_map)):
+			current.append(digit_map[i]) # try this combination
+			self.letterCombinationsHelper(mapping, digits, index + 1, current, result) # recurse
+			current.pop() # backtrack
 
 
 s = Solution()

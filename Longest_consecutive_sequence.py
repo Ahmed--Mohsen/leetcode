@@ -1,18 +1,33 @@
-from sets import Set
+"""
+
+Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
+
+For example,
+Given [100, 4, 200, 1, 3, 2],
+The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
+
+Your algorithm should run in O(n) complexity.
+
+"""
 
 class Solution:
+	
 	# @param num, a list of integer
 	# @return an integer
 	def longestConsecutive(self, num):
-		s = set()
 		
-		if num == None or len(num) == 0:
+		# base case
+		if len(num) == 0:
 			return 0
 		
-		for n in num:
-			s.add(n)
+		# for O(1) element searching
+		s = set(num)
+		
+		# means single element itself is a sequence
 		max_count = 1
 		
+		# for each number move left and right to check
+		# if there is a sequence
 		for n in num:
 			left = n - 1
 			right = n + 1

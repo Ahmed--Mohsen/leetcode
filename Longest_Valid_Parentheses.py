@@ -1,30 +1,57 @@
+"""
+
+Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
+
+For "(()", the longest valid parentheses substring is "()", which has length = 2.
+
+Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
+
+"""
+
 class Solution:
+	
 	# @param s, a string
 	# @return an integer
 	def longestValidParentheses(self, s):
-		if s == None or len(s) == 0:
-			return 0
+		n = len(s)
 		
-		last = -1
+		# base case
+		if n == 0: return 0
+		
 		stack = []
-		max_len = 0
-		for i in range(len(s)):
+		longest = 0
+		for i in range(n):
 			if s[i] == "(":
 				stack.append(i)
-			else: #s[i] == ")"
-				if len(stack) == 0: #new start
-					last = i
-				else:
+				
+			else: # s[i] == ")"
+				
+				# s[i] can be matched so lets push it
+				if stack and s[stack[-1]] == '(':
 					stack.pop()
+				
+				# cannot be matched
+				else:
+					stack.append(i)
 					
-					#if stack is empty mean the positon before the valid left parenthesis is "last"
-					if len(stack) == 0:
-						max_len = max(max_len, i - last )
-					else:
-						#stack is not empty
-						max_len = max(max_len, i - stack[-1])
-		return max_len
+
+		# stack now have all indices that cannot be matched
+		# find the longest string in between 2 invalid indices
+		if len(stack) == 0: # all string is valid
+			longest = n
+		else:
+			start = 0; end = n
+			while stack:
+				start = stack.pop(-1)
+				longest = max(longest, end - start - 1)
+				end = start
+				
+			# check the substring from 0 till end
+			longest = max(longest, end)
+						
+		return longest
 				
 
+
 s = Solution()
-print s.longestValidParentheses("()")
+print s.longestValidParentheses("(()()")

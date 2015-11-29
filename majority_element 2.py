@@ -1,3 +1,11 @@
+# -*- coding: utf-8 -*-
+"""
+
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times. 
+The algorithm should run in linear time and in O(1) space.
+
+"""
+
 class Solution:
 	
 	# @param num, a list of integers
@@ -9,8 +17,7 @@ class Solution:
 		n = len(nums)
 		
 		# base case
-		if n < 0: 
-			return []
+		if n < 0: return []
 		
 		# c candidate each with counter[i]
 		c = k - 1 
@@ -49,7 +56,7 @@ class Solution:
 		# choose those candidates that actually satisify [n/k] condition			
 		result = []
 		for i in range(c):
-			if counters[i] > n/k:
+			if counters[i] > n / k:
 				result.append(candidates[i])
 			
 		return result

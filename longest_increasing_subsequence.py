@@ -23,7 +23,7 @@ class Solution(object):
 		if n < 2:
 			return n
 		
-		# tail[i] = last number in the active sequence of len (i+1)
+		# tail[i] = last(min) number in the active sequence of len (i+1)
 		# all elements in tail would be sorted by definition
 		tail = [0] * n
 		tail[0] = nums[0]
