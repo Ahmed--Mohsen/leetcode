@@ -1,3 +1,13 @@
+"""
+
+Given a collection of intervals, merge all overlapping intervals.
+
+For example,
+Given [1,3],[2,6],[8,10],[15,18],
+return [1,6],[8,10],[15,18].
+
+"""
+
 # Definition for an interval.
 class Interval:
 	def __init__(self, s=0, e=0):
@@ -13,15 +23,20 @@ def interval_str(self):
 Interval.__cmp__ = interval_cmp
 Interval.__str__ = interval_str
 
+
 class Solution:
+	
 	# @param intervals, a list of Interval
 	# @return a list of Interval
 	def merge(self, intervals):
+		
+		# base case
 		if intervals == None or len(intervals) <= 1:
 			return intervals
-			
+		
+		# sort the intervals based on there start	
 		intervals.sort()
-		merged_intervals = [intervals[0]]
+		merged_intervals = [intervals[0]] # stack
 		
 		for i in range(1, len(intervals)):
 			current_interval = intervals[i]

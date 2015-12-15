@@ -1,35 +1,36 @@
+"""
+
+You are given an n x n 2D matrix representing an image.
+
+Rotate the image by 90 degrees (clockwise).
+
+Follow up:
+Could you do this in-place?
+
+brute force: 	new_matrix[j][height - 1 - i] = matrix[i][j]
+"""
+
 class Solution:
-	# @param matrix, a list of lists of integers
-	# @return a list of lists of integers
-	def rotate_old(self, matrix):
-		if matrix == None:
-			return None
-		height = len(matrix)
-		width = len(matrix[0])
-		new_matrix = [[0]*height for i in range(width)]		
-		for i in range(height):
-			for j in range(width):
-				new_matrix[j][height - 1 - i] = matrix[i][j]
-		return new_matrix
+	
+	"""
+	:type matrix: List[List[int]]
+	:rtype: void Do not return anything, modify matrix in-place instead.
+	"""
+	def rotate(self, matrix):
 		
+		# base case
+		if matrix == None: return None
+		
+	  # clockwise rotate
+	  # first reverse up to down, then swap the symmetry 
+	  # 1 2 3     7 8 9     7 4 1
+	  # 4 5 6  => 4 5 6  => 8 5 2
+	  # 7 8 9     1 2 3     9 6 3
+		
+		# up to down reverse
+		matrix.reverse()
 
-	def print_image(self, matrix):
+		# move on the diagonal and swap elements 
 		for i in range(len(matrix)):
-			for j in range(len(matrix[0])):
-				print matrix[i][j],"   ",
-			print "\n"
-	
-	
-
-s = Solution()
-x = []
-current = 1
-for i in range(4):
-	y = []
-	for j in range(3):
-		y.append(current)
-		current += 1
-	x.append(y)
-s.print_image(x)
-ans = s.rotate(x)
-s.print_image(ans)
+			for j in range(i):
+				matrix[i][j], matrix[j][i] = matrix[j][i] ,matrix[i][j]

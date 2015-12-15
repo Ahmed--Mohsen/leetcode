@@ -1,23 +1,35 @@
+"""
+
+Given a binary tree, find its minimum depth.
+
+The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+"""
+
 # Definition for a  binary tree node
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode:
+	def __init__(self, x):
+		self.val = x
+		self.left = None
+		self.right = None
 
 class Solution:
+	
 	# @param root, a tree node
 	# @return an integer
 	def minDepth(self, root):
-		if root == None:
-			return 0
-		if root.left == None and root.right == None:
-			return 1
+		# base cases
+		if root == None: return 0
+		if root.left == None and root.right == None: return 1
 		
-		min_depth_val = float("inf")
-		if root.left:
-			min_depth_val = min(min_depth_val, self.minDepth(root.left) + 1)
-		if root.right:
-			min_depth_val = min(min_depth_val, self.minDepth(root.right) + 1)
+		# calc min depth for each child
+		left_depth =  self.minDepth(root.left)
+		right_depth = self.minDepth(root.right)
 		
-		return min_depth_val
+		# the number of nodes along the shortest path from 
+		# the root node down to the nearest leaf node
+		if left_depth == 0 or right_depth == 0:
+			return max(left_depth, right_depth) + 1
+		
+		# normal case
+		return min(left_depth, right_depth) + 1

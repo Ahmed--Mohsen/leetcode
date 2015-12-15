@@ -1,3 +1,12 @@
+"""
+
+Given a singly linked list, determine if it is a palindrome.
+
+Follow up:
+Could you do it in O(n) time and O(1) space?
+
+"""
+
 # Definition for singly-linked list.
 class ListNode(object):
 	def __init__(self, x):
@@ -16,6 +25,30 @@ class Solution(object):
 			return True
 		
 		# split the list into halves
+		head1, head2 = self.split(head)
+
+		# reverse next half
+		head2 = self.reverse(head2)
+
+		# now to be palndirom head1 and head2
+		# have to be the same
+		while head1 and head2:
+			if head1.val != head2.val:
+				return False
+			
+			head1 = head1.next
+			head2 = head2.next
+		
+		# true in both even and odd cases
+		return True
+		
+	
+	"""
+	:desc cut a linked list into equal sized halves
+	:type head: ListNode
+	:rtype: (ListNode, ListNode)
+	"""
+	def split(self, head):
 		slow = head
 		fast = head
 		while fast.next and fast.next.next:
@@ -23,33 +56,29 @@ class Solution(object):
 			fast = fast.next.next
 		
 		# terminate first half (head)
-		head_rev = slow.next
+		half_head = slow.next
 		slow.next = None
 
-		# reverse next half
+		return (head, half_head)
+
+	"""
+	:desc reverse a linked list
+	:type head: ListNode
+	:rtype: ListNode
+	"""
+	def reverse(self, head):
 		prev = None
-		current = head_rev
+		current = head
 		while current:
 			# reverse links
 			next = current.next
 			current.next = prev 
-			
+	
 			# update pointers
 			prev = current
 			current = next
-		head_rev = prev
 		
-		# now to be palndirom head and head_rev
-		# have to be the same
-		while head and head_rev:
-			if head.val != head_rev.val:
-				return False
-			
-			head = head.next
-			head_rev = head_rev.next
-		
-		# true in both even and odd cases
-		return True
+		return prev
 		
 
 	def printList(self, head, size=100):

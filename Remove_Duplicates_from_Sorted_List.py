@@ -1,3 +1,13 @@
+"""
+
+Given a sorted linked list, delete all duplicates such that each element appear only once.
+
+For example,
+Given 1->1->2, return 1->2.
+Given 1->1->2->3->3, return 1->2->3.
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -5,6 +15,7 @@ class ListNode:
 		self.next = None
 
 class Solution:
+	
 	# @param head, a ListNode
 	# @return a ListNode
 	def deleteDuplicates(self, head):
@@ -12,7 +23,7 @@ class Solution:
 			return head
 	
 		current = head
-		while current.next != None:
+		while current.next:
 			next = current.next
 			if current.val == next.val:
 				current.next = next.next
@@ -20,22 +31,6 @@ class Solution:
 				current = current.next
 		return head
 		
-		
-	# @param head, a ListNode
-	# @return a ListNode
-	def deleteDuplicatesOld(self, head):
-		if head == None:
-			return head
-	
-		start = head
-		while start != None:
-			end = start.next
-			while end != None and start.val == end.val:
-				end = end.next
-			start.next = end
-			start = start.next
-
-		return head
 
 	def printList(self, head, size=100):
 		pointer = head

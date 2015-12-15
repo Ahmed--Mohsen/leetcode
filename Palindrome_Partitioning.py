@@ -1,9 +1,27 @@
+"""
+
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+For example, given s = "aab",
+Return
+
+  [
+    ["aa","b"],
+    ["a","a","b"]
+  ]
+
+
+"""
+
 class Solution:
+	
 	# @param s, a string
 	# @return a list of lists of string
 	def partition(self, s):
-		if len(s) <= 1:
-			return [[s]]
+		# base case
+		if len(s) <= 1: return [[s]]
 		
 		self.is_plandirom_dp = self.build_palindrome_dp(s)
 		self.result = []
@@ -13,7 +31,9 @@ class Solution:
 	
 	def build_palindrome_dp(self, s):
 		n = len(s)
-		memory = [[False]*n for i in range(n, 0, -1)]
+		
+		# add extra column to handle all indexes inclusive
+		memory = [[False] * n for i in range(n, 0, -1)]
 
 		for i in range(n-1, -1, -1):
 			for j in range(i, n):
@@ -23,24 +43,25 @@ class Solution:
 		
 	
 	def partition_helper(self, s, start, partitions):
+		# all string have been partioned into planidrom substring
 		if start >= len(s):
 			self.result.append(list(partitions))
 			return
 		
 		for i in range(start, len(s)):
-			#if self.is_palindrome(s, start, i):
+			
+			# substring from start to i makes a plandirom
 			if self.is_plandirom_dp[start][i] == True:
-				partitions.append(s[start:i+1])
+				
+				# add it to current result, substring start:i inclusive
+				partitions.append(s[start : i+1])
+				
+				# recurse to next substring
 				self.partition_helper(s, i+1, partitions)
+				
+				# backtrack
 				partitions.pop()
 	
-	def is_palindrome(self, s, start, end):
-		while start < end:
-			if s[start] != s[end]:
-				return False
-			start += 1
-			end -= 1
-		return True
 		
 s = Solution()
 x = "bb"

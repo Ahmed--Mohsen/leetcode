@@ -1,4 +1,13 @@
+"""
+
+Given a roman numeral, convert it to an integer.
+
+Input is guaranteed to be within the range from 1 to 3999.
+
+"""
+
 class Solution:
+	
 	# @return an integer
 	def romanToInt(self, s):
 		map = {
@@ -12,7 +21,6 @@ class Solution:
 		}
 		result = 0
 		prev_int = 0
-		#s = list(s)
 		
 		for i in range(len(s) -1 , -1, -1):
 			c = s[i]

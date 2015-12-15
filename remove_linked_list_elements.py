@@ -1,3 +1,13 @@
+"""
+
+Remove all elements from a linked list of integers that have value val.
+
+Example
+Given: 1 --> 2 --> 6 --> 3 --> 4 --> 5 --> 6, val = 6
+Return: 1 --> 2 --> 3 --> 4 --> 5
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -5,6 +15,7 @@ class ListNode:
 		self.next = None
 
 class Solution:
+	
 	# @param {ListNode} head
 	# @param {integer} val
 	# @return {ListNode}
@@ -19,9 +30,13 @@ class Solution:
 	
 		pointer = head
 		while pointer:
-			if pointer.val == val: # element found
+			
+			# element found skip it
+			if pointer.val == val: 
 				prev.next = pointer.next
-			else: # proceed to next element
+			
+			# proceed to next element
+			else: 
 				prev = prev.next
 				
 			pointer = pointer.next

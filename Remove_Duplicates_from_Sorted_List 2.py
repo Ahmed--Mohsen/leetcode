@@ -1,3 +1,14 @@
+"""
+
+Given a sorted linked list, delete all nodes that have duplicate numbers, 
+leaving only distinct numbers from the original list.
+
+For example,
+Given 1->2->3->3->4->4->5, return 1->2->5.
+Given 1->1->1->2->3, return 2->3.
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -5,52 +16,39 @@ class ListNode:
 		self.next = None
 
 class Solution:
+	
 	# @param head, a ListNode
 	# @return a ListNode
 	def deleteDuplicates(self, head):
-		if head == None:
-			return head
-			
+		# base case
+		if head == None: return head
+		
+		# its next link will hold the answer
 		dummy = ListNode(-1)
 		dummy.next = head
 		
 		prev = dummy
 		current = head
-		while current != None:
-			while(current.next != None and current.val == current.next.val):
-				current = current.next
-
-			if prev.next == current: #no duplication
-				prev = current
-			else: #duplication exist
-				prev.next = current.next
-			current = current.next
-		return dummy.next
 		
-		
-	# @param head, a ListNode
-	# @return a ListNode
-	def deleteDuplicatesOld(self, head):
-		if head == None:
-			return head
-		dummy = ListNode(-1)
-		dummy.next = head
-		
-		prev = dummy
-		start = head
-		while start != None:
-			end = start.next
-			while end != None and start.val == end.val:
-				end = end.next
+		while current:
 			
-			self.printList(dummy.next)
-			if prev.next == end:
-				prev = prev.next
-			else:
-				prev.next = end.next
-			start = end.next
-
+			# skip nodes having same value
+			while(current.next and current.val == current.next.val):
+				current = current.next
+				
+			# no duplication
+			if prev.next == current: 
+				prev = current
+				
+			# duplication exist
+			else: 
+				prev.next = current.next
+			
+			# move to next node
+			current = current.next
+			
 		return dummy.next
+		
 
 	def printList(self, head, size=100):
 		pointer = head

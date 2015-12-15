@@ -1,3 +1,23 @@
+"""
+
+Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
+
+If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
+
+You may not alter the values in the nodes, only nodes itself may be changed.
+
+Only constant memory is allowed.
+
+For example,
+Given this linked list: 1->2->3->4->5
+
+For k = 2, you should return: 2->1->4->3->5
+
+For k = 3, you should return: 3->2->1->4->5
+
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -15,20 +35,21 @@ class Solution:
 		dummy = ListNode(-1)
 		prev = dummy
 
-		while(slow != None):
+		while slow:
 			fast = slow
 			
-			#advance fast to be ahead of slow by k steps
+			# advance fast to be ahead of slow by k steps
 			count = 0
-			while(fast != None and count < k):
+			while fast and count < k:
 				fast = fast.next
 				count += 1
-				
-			if count < k: #list size is less than k
+				 
+			# list size is less than k
+			if count < k: 
 				prev.next = slow
 				break
 
-			#start reversing
+			# start reversing
 			pointer = slow
 			next = pointer.next
 			for i in range(k-1):
@@ -38,7 +59,7 @@ class Solution:
 				next = temp_next
 			slow.next = fast
 			
-			#update for next step
+			# update for next step
 			prev.next = pointer
 			prev = slow
 			slow = fast

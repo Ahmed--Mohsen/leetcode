@@ -1,3 +1,14 @@
+"""
+
+Reverse a singly linked list.
+
+click to show more hints.
+
+Hint:
+A linked list can be reversed either iteratively or recursively. Could you implement both?
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -5,17 +16,17 @@ class ListNode:
 		self.next = None
 		
 class Solution:
+	
 	# @param {ListNode} head
 	# @return {ListNode}
 	# iterative solution
 	def reverseList(self, head):
-		# base case
+		# base case ... single node or no node
 		if head == None or head.next == None:
 			return head
 		
 		prev = None
 		current = head
-		next = None
 		
 		while current:
 			# save next current pointer

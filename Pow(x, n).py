@@ -1,3 +1,9 @@
+"""
+
+Implement pow(x, n).
+
+"""
+
 class Solution:
 	# @param x, a float
 	# @param n, a integer
@@ -10,6 +16,7 @@ class Solution:
 		return self.pow_helper(x,n)
 	
 	def pow_helper(self, x, n):
+		# base case
 		if n == 0:
 			return 1
 		

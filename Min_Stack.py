@@ -1,3 +1,14 @@
+"""
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+push(x) -- Push element x onto stack.
+pop() -- Removes the element on top of the stack.
+top() -- Get the top element.
+getMin() -- Retrieve the minimum element in the stack.
+
+"""
+
 class MinStack:
 	
 	def __init__(self):
@@ -11,15 +22,16 @@ class MinStack:
 			self.stack.append(0)
 			self.min_val = x
 		else:
-			self.stack.append(x - self.min_val) #store the gap between x and min
+			self.stack.append(x - self.min_val) # store the gap between x and min
 			self.min_val = min(self.min_val, x)
 		
 	# @return nothing
 	def pop(self):
-		if len(self.stack) == 0:
-			return
+		# base case
+		if len(self.stack) == 0: return
+		
 		poped = self.stack.pop(-1)
-		if poped < 0: #this value was the min
+		if poped < 0: # this value was the min
 			self.min_val = self.min_val - poped
 				
 		
@@ -27,8 +39,8 @@ class MinStack:
 	def top(self):
 		top = self.stack[-1]
 		if top > 0:
-			return top + self.min_val #add the gap
-		else: #top is the minimum
+			return top + self.min_val # add the gap
+		else: # top is the minimum
 			return self.min_val
 		
 	# @return an integer

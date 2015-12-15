@@ -1,3 +1,9 @@
+"""
+
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+"""
+
 import heapq
 
 # Definition for singly-linked list.
@@ -7,34 +13,41 @@ class ListNode:
 		self.next = None
 		
 class Solution:
+	
 	# @param a list of ListNode
 	# @return a ListNode
 	def mergeKLists(self, lists):
-		#base cases
-		if len(lists) == 0:
-			return None
-		if len(lists) == 1:
-			return lists[0]
+		# base cases
+		if len(lists) == 0: return None
+		if len(lists) == 1: return lists[0]
 		
-		pre_sort_head = ListNode(-1) # dummy
+		# dummy node pointing to final merged result
+		pre_sort_head = ListNode(-1) 
 		pointer = pre_sort_head
 		heap = []
 		
-		for list_node in lists:
-			if list_node:
-				heapq.heappush(heap, (list_node.val, list_node))
+		# insert the head of each list to the heap
+		for list_head in lists:
+			if list_head:
+				heapq.heappush(heap, (list_head.val, list_head))
 		
-		while len(heap) > 0:
+		# extract min wheenver there exist nodes in heap
+		while heap:
 			
 			# get min node and add it to the sorted list
 			min_node = heapq.heappop(heap)[1]
 			pointer.next = min_node
 			pointer = pointer.next
 			
+			# if the min node is not the tail add its next node
+			# to the heap
 			if min_node.next:
 				heapq.heappush(heap, (min_node.next.val, min_node.next))
 		
 		return pre_sort_head.next	
+
+
+
 	
 	def printList(self, head, size=100):
 		pointer = head

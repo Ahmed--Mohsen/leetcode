@@ -36,7 +36,7 @@ class Solution:
 				x1 = points[j].x; y1 = points[j].y
 				
 				# check duplicates
-				if x1 == x and y2 == y:
+				if x1 == x and y1 == y:
 					duplicates += 1
 				
 				# check vertical points

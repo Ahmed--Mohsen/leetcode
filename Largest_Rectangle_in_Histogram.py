@@ -14,6 +14,43 @@ return 10.
 
 """
 
+############################## one stack Solution ##############################
+class Solution:
+	
+	# @param height, a list of integer
+	# @return an integer
+	def largestRectangleArea(self, height):
+		n = len(height)
+		
+		# base case
+		if n == 0: return 0
+		
+		stack = []
+		i = 0
+		area = 0
+		
+		while i < n:
+			# the peek of the stack is smaller than current hist[i]
+			if len(stack) == 0 or height[stack[-1]] <= height[i]:
+				stack.append(i)
+				i += 1
+			# height[i] is smaller than peek ... calc current area with peek as height
+			else:
+				tp = stack.pop(-1)
+				width = i if len(stack) == 0 else i - stack[-1] - 1
+				area = max(area, height[tp] * width)
+		
+		# remaining heights
+		while stack:
+			tp = stack.pop(-1)
+			width = i if len(stack) == 0 else i - stack[-1] - 1
+			area = max(area, height[tp] * width)
+			
+		return area
+		
+		
+
+############################## Another Solution ##############################
 class Solution:
 	
 	# @param height, a list of integer
@@ -66,5 +103,5 @@ class Solution:
 			max_area = max(max_area, width[i]*height[i])
 		return max_area
 			
-s = Solution()
-print s.largestRectangleArea([2,4])
+#s = Solution()
+#print s.largestRectangleArea([2,4])

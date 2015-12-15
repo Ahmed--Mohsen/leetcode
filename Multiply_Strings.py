@@ -1,35 +1,48 @@
+"""
+
+Given two numbers represented as strings, return multiplication of the numbers as a string.
+
+Note: The numbers can be arbitrarily large and are non-negative.
+
+"""
+
 class Solution:
+	
 	# @param num1, a string
 	# @param num2, a string
 	# @return a string
 	def multiply(self, num1, num2):
+		
+		# parse strings
+		num1 = [int(n) for n in num1]
+		num2 = [int(n) for n in num2]
+		
 		l1 = len(num1)
 		l2 = len(num2)
 		s = [0] * (l1 + l2)
-		
-		for i in range(l1):
+
+		# move in reverse order
+		for i in range(l1-1, -1, -1):
 			carry = 0
-			n1 = ord(num1[l1 - i - 1]) - ord('0')
-			for j in range(l2):
-				n2 = ord(num2[l2 - j - 1]) - ord('0')
-				sum = n1*n2+s[i+j]+carry
-				s[i+j] = sum%10
-				carry = sum/10
-			if carry > 0:
-				s[i+l2] =+ carry
+
+			for j in range(l2-1, -1, -1):		
+				tmp = s[i+j+1] + (num1[i] * num2[j]) + carry
+				s[i+j+1] = tmp % 10
+				carry = tmp / 10
+
+			s[i] =+ carry
+
+		# get the first position the has zero
+		start = 0
+		while start < len(s) and s[start] == 0:
+			start += 1
 		
-		
-		start = l1+l2-1
-		while(s[start] == 0 and start >= 0):
-			start -= 1
-		if start < 0:
+		# all zeros
+		if start == len(s): 
 			return "0"
 		
-		ans = ""
-		for i in range(start, -1, -1):
-			ans += str(s[i])
-		return ans
-				
+		return "".join(str(n) for n in s[start:])
+		
 
 s = Solution()
-print s.multiply("0", "0")
+print s.multiply("756", "0")

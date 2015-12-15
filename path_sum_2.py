@@ -26,24 +26,34 @@ class Solution:
 	# @param root, a tree node
 	# @param sum, an integer
 	# @return a boolean
-	def hasPathSum(self, root, sum):
-		return self.hasPathSumHelper(root, sum)
+	def pathSum(self, root, sum):
+		self.paths = []
+		self.hasPathSumHelper(root, sum, [])
+		return self.paths
 	
-	def hasPathSumHelper(self, root, sum):
+	def hasPathSumHelper(self, root, sum, path):
 		# base case
-		if root == None: return False
+		if root == None: return
 		
+		# visit root
+		path.append(root.val)
+		
+		# check end of leave nodes
 		if root.left == None and root.right == None and sum == root.val:
-			return True
+			self.paths.append(list(path))
 		
-		has_left_sum = self.hasPathSumHelper(root.left, sum - root.val)
-		has_right_sum = self.hasPathSumHelper(root.right, sum - root.val)
+		# visit children
+		else:
+			if root.left: self.hasPathSumHelper(root.left, sum - root.val, path)
+			if root.right: self.hasPathSumHelper(root.right, sum - root.val, path)
 			
-		return  has_left_sum or has_right_sum
+		# backtrack
+		path.pop()
+			
 		
-
 s = Solution()
 t = TreeNode(1)
 t.left = TreeNode(2)
-#t.right = TreeNode(3)
-print s.hasPathSum(t,3)
+t.right = TreeNode(1)
+t.right.left = TreeNode(1)
+print s.pathSum(t,3)

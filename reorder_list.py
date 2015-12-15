@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+You must do this in-place without altering the nodes' values.
+
+For example,
+Given {1,2,3,4}, reorder it to {1,4,2,3}.
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -5,50 +18,86 @@ class ListNode:
 		self.next = None
 
 class Solution:
-	# @param head, a ListNode
-	# @return nothing
+	
+	"""
+	:type head: ListNode
+	:rtype: void Do not return anything, modify head in-place instead.
+	"""
 	def reorderList(self, head):
+		# base case
 		if head == None or head.next == None:
-			return head
+			return
 			
-		#split the list into 2 halves
+		# split the list into 2 halves
+		first, second = self.split(head)
+		
+		# reverse second half
+		second = self.reverse(second)
+		
+		# merge in the required pattern
+		self.merge(first, second)
+		
+	"""
+	:desc cut a linked list into equal sized halves
+	:type head: ListNode
+	:rtype: (ListNode, ListNode)
+	"""
+	def split(self, head):
 		slow = head
 		fast = head
-		while(slow != None and fast != None  and fast.next != None):
+		while fast.next and fast.next.next:
 			slow = slow.next
 			fast = fast.next.next
 		
-		first = head
-		second = slow.next
-		second = self.reverse(second)
+		# terminate first half (head)
+		half_head = slow.next
 		slow.next = None
-		return self.merge(first,second)
-	
+
+		return (head, half_head)
+
+	"""
+	:desc reverse a linked list
+	:type head: ListNode
+	:rtype: ListNode
+	"""
 	def reverse(self, head):
 		prev = None
 		current = head
-		next = None
-		
-		while(current != None):
+		while current:
+			# reverse links
 			next = current.next
-			current.next = prev
+			current.next = prev 
+	
+			# update pointers
 			prev = current
 			current = next
-		head = prev
 		
-		return head
+		return prev
 	
+	
+	"""
+	:desc merge 2 linked lists according to the problem
+	:type first: ListNode
+	:type second: ListNode
+	:rtype: void
+	"""
 	def merge(self, first, second):
 		p1 = first 
 		p2 = second
-		while(p1 != None and p2 != None):
+		while p1 and p2:
+			
+			# keep track of next pointers
 			p1Next = p1.next
 			p2Next = p2.next
+			
+			# merge in zigzag pattern
 			p1.next = p2
 			p2.next = p1Next
+			
+			# move to next nodes
 			p1 = p1Next
 			p2 = p2Next
-		return first
+		
 		
 		
 	def printList(self, head):

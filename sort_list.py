@@ -1,3 +1,9 @@
+"""
+
+Sort a linked list in O(n log n) time using constant space complexity.
+
+"""
+
 # Definition for singly-linked list.
 class ListNode:
 	def __init__(self, x):
@@ -5,62 +11,72 @@ class ListNode:
 		self.next = None
 
 class Solution:
-	# @param head, a ListNode
-	# @return a ListNode
+	
+	"""
+	:type head: ListNode
+	:rtype: ListNode
+	"""
 	def sortList(self, head):
+		# base case
 		if	head == None or head.next == None:
 			return head
 		
-		# get list size
-		size = 0
-		pointer = head
-		while pointer != None:
-			size = size + 1
-			pointer = pointer.next
-	
-		return self.mergeSort(head, size)
-	
-	def mergeSort(self, head, size):
-		#base case
-		if size == 1:
-			temp = head
-			temp.next = None
-			return temp
-			
-		#split the list into left and right sublists
-		leftHead = head
-		rightHead = head
-		mid = (size)/2
-		for	i in range(0, mid):
-			rightHead = rightHead.next
-					
-		left = self.mergeSort(leftHead, mid)
-		right = self.mergeSort(rightHead, size - mid)
+		# split the list into 2 halves
+		left, right = self.split(head)
 		
-		return self.merge(left, mid, right, size - mid)
+		# sort each half
+		left = self.sortList(left)
+		right = self.sortList(right)
+		
+		# merge sorted halves into on list
+		return self.merge(left, right)
+		
 	
-	def merge(self, left, leftSize, right, rightSize):		
-		if left == None:
-			return right
-		if right == None:
-			return left
-			
+	"""
+	:desc cut a linked list into equal sized halves
+	:type head: ListNode
+	:rtype: (ListNode, ListNode)
+	"""
+	def split(self, head):
+		slow = head
+		fast = head
+		while fast.next and fast.next.next:
+			slow = slow.next
+			fast = fast.next.next
+		
+		# terminate first half (head)
+		half_head = slow.next
+		slow.next = None
+
+		return (head, half_head)
+	
+	
+	"""
+	:desc merge 2 sorted lists into one
+	:type left: ListNode
+	:type right: ListNode
+	:rtype: ListNode
+	"""
+	def merge(self, left, right):		
+		
 		preHead = ListNode(-1)
 		pointer = preHead
-		i = 0
-		j = 0
-		while(i < leftSize and j < rightSize):
+		
+		while left and right:
+			# merge left first
 			if left.val < right.val:
 				pointer.next = left
 				left = left.next
-				i = i + 1
+				
+			# merge right first
 			else:
 				pointer.next = right
 				right = right.next
-				j = j + 1
+			
+			# move forward
 			pointer = pointer.next
 				
-		#merge remaining parts
+		# merge remaining parts
 		if left != None:
 			pointer.next = left
 		
@@ -69,23 +85,3 @@ class Solution:
 			
 		return preHead.next
 	
-	def printList(self, head, size=100):
-		pointer = head
-		s = ""
-		counter = 0
-		while pointer != None and counter < size:
-			s = s + str(pointer.val) + " , "
-			pointer = pointer.next
-			counter = counter + 1
-		print s
-"""
-s = Solution()
-head = ListNode(1)
-pointer = head
-for i in range(20,11,-1):
-	temp = ListNode(i)
-	pointer.next = temp
-	pointer = pointer.next
-x = s.sortList(head)
-s.printList(x)
-"""
