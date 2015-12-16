@@ -1,3 +1,11 @@
+"""
+
+Given a sorted integer array without duplicates, return the summary of its ranges.
+
+For example, given [0,1,2,4,5,7], return ["0->2","4->5","7"].
+
+"""
+
 class Range(object):
 
 	def __init__(self, start):
@@ -20,14 +28,14 @@ class Range(object):
 		
 
 class Solution:
+	
 	# @param {integer[]} nums
 	# @return {string[]}
 	def summaryRanges(self, nums):
 		n = len(nums)
 		
 		# base case 
-		if n == 0:
-			return []
+		if n == 0: return []
 		
 		# keep ranges in stack
 		stack = [Range(nums[0])]

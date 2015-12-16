@@ -1,3 +1,17 @@
+"""
+
+Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
+
+Return all such possible sentences.
+
+For example, given
+s = "catsanddog",
+dict = ["cat", "cats", "and", "sand", "dog"].
+
+A solution is ["cats and dog", "cat sand dog"].
+
+"""
+
 class Solution:
 	# @param s, a string
 	# @param dict, a set of string
@@ -13,22 +27,29 @@ class Solution:
 
 	
 	def wordBreakHelper(self, s):
-		words = []
 		
-		#use memo first if available
+		# use memo first if available
 		if s in self.memo:
 			return self.memo[s]
 		
+		words = []
+		
+		# check if the whole word belongs to the dict
+		if s in self.dict:
+			words.append(s)
+			
+			
+		# try all breaking points for s
 		for i in range(1, len(s)+1):
 			left_word = s[:i]
 			rigth_word = s[i:]
 			
 			if left_word in self.dict:
-				sub_words = self.wordBreakHelper(rigth_word) #continue with rest
+				
+				# continue with rest
+				sub_words = self.wordBreakHelper(rigth_word) 
 				for word in sub_words:
 					words.append(left_word+" "+word)
-				if len(rigth_word) == 0:
-					words.append(left_word)
 					
 		self.memo[s] = words
 		return words

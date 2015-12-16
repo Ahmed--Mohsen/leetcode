@@ -1,4 +1,25 @@
+"""
+
+Given a 2D board and a word, find if the word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+
+For example,
+Given board =
+
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+word = "ABCCED", -> returns true,
+word = "SEE", -> returns true,
+word = "ABCB", -> returns false.
+
+"""
+
 class Solution:
+	
 	# @param board, a list of lists of 1 length string
 	# @param word, a string
 	# @return a boolean
@@ -7,7 +28,7 @@ class Solution:
 			return False
 		self.board = board
 		self.word = word
-		self.visited = [[False]*len(board[0]) for i in range(len(board))]
+		self.visited = [[False] * len(board[0]) for i in range(len(board))]
 
 		for i in range(len(board)):
 			for j in range(len(board[0])):

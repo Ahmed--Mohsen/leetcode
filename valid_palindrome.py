@@ -1,40 +1,48 @@
 # -*- coding: utf-8 -*-
+"""
+
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+For example,
+"A man, a plan, a canal: Panama" is a palindrome.
+"race a car" is not a palindrome.
+
+Note:
+Have you consider that the string might be empty? This is a good question to ask during an interview.
+
+For the purpose of this problem, we define empty string as valid palindrome.
+
+"""
+
 
 class Solution:
 	# @param s, a string
 	# @return a boolean
 	def isPalindrome(self, s):
-		if len(s) < 2:
-			return True
-		start = 0 
-		end = len(s) - 1
-		while start < end:
-			while(start < len(s) and not(self.isLetter(s[start])) and not(self.isNumber(s[start]))):
-				start = start + 1
-			while(end >= 0 and not(self.isLetter(s[end])) and not(self.isNumber(s[end]))):
-				end = end - 1
-			if start > end: #empty string or with all punc
-				return True
-			if s[start].lower() != s[end].lower():
-				return False
-			start = start + 1
-			end = end - 1		
-		return True	
-		#return self.validate(s,0 , len(s) - 1)
-	
-	def isLetter(self, c):
-		return ((c >= 'A' and c <= 'Z') or (c >= 'a' and c <= 'z'))
-	
-	def isNumber(self, c):
-		return (c >= '0' and c <= '9')
+		# use 2 pointers from left and right sides
+		left = 0
+		right = len(s) - 1
 		
-	def validate(self, s, start, end):
-		if start > end or start == end:
-			return True
-		if s[start] != s[end]:
-			return False
-		return self.validate(s, start + 1, end - 1)
+		while left < right:
+
+			# skip any non alphanumeric char
+			while left < right and not s[left].isalnum():
+				left += 1
+			while left < right and not s[right].isalnum():
+				right -= 1
+			
+			# early stop
+			if s[left].lower() != s[right].lower():
+				return False
+			
+			# move forward
+			left += 1
+			right -= 1
+		
+		# all is well
+		return True
+		
 		
 
 s = Solution()
-print s.isPalindrome("a.")
+print s.isPalindrome("a.A")
