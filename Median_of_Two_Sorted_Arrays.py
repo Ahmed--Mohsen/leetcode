@@ -36,8 +36,8 @@ class Solution:
 		if k == 1: 
 			return min(A[0], B[0])
 		
-		i = min(m, k/2)
-		j = min(n, k/2)
+		i = min(m, k / 2)
+		j = min(n, k / 2)
 		
 		# increase B median
 		if A[i-1] > B[j-1]: 

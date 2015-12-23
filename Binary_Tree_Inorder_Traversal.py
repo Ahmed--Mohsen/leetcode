@@ -29,7 +29,7 @@ class Solution:
 		return self.inorderTraversalHelper2(root)
 	
 	
-	#recursive solution
+	# recursive solution
 	def inorderTraversalHelper(self, root):
 		if root == None:
 			return
@@ -42,7 +42,7 @@ class Solution:
 		if root.right:
 			self.inorderTraversalHelper(root.right)
 	
-	#iterative solution
+	# iterative solution
 	def inorderTraversalHelper2(self, root):
 		if root == None:
 			return []
@@ -57,9 +57,10 @@ class Solution:
 			if current in visited:
 				traversal.append(current.val)
 				continue
+				
 			visited.add(current)
 			
-			if current.right: #visit left subtree
+			if current.right: # visit left subtree
 				stack.append(current.right)
 				
 			stack.append(current)
